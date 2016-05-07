@@ -1,6 +1,6 @@
 #asuka
 
-- Tokio Kichi's realtime assistant chat-bot
+- Tokio Kichi's realtime assistant chat-bot (Pure Perl Version)
 - 「asuka」Program's Phase 1
 
 # script/base.pl
