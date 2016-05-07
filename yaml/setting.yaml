@@ -1,0 +1,15 @@
+bot_type:
+  asuka:
+    username: "asuka"
+    icon_url: "https://avatars.slack-edge.com/2016-05-02/39279692419_6ef48e715be27d204351_48.jpg"
+mode:
+  debug:
+    token: "test_slack"
+    channel: "#test"
+    text: "debug mode"
+    bot: "asuka"
+  asuka:
+    token: "test_slack"
+    channel: "#test"
+    text: "im asuka"
+    bot: "asuka"

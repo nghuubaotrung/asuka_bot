@@ -1,0 +1,13 @@
+---
+test_slack:
+  channels:
+    C0K8HC8N7: bnb
+    C0K8LD139: general
+    C0U5R47AS: test
+    C0VE438P8: release
+  users:
+    U0K8LD11V: bin
+    U0K8M58RG: jun
+    U0KFH0CN8: bill
+    U0KFJTSEQ: asuka
+    USLACKBOT: slackbot
