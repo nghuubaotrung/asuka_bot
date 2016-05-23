@@ -5,7 +5,7 @@ PUBLISH_CHANNEL="#release"
 TEST_CHANNEL="test"
 
 ## asuka webhook
-WEBHOOK="XXXXXXXXXXXXXXXXXXXXXXXX"
+WEBHOOK_URL="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
 ## asuka-monitor WebHook : XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
@@ -61,6 +61,7 @@ do
             --data-binary '{"listing":{"transit":"4 minutes train ride to Shinjuku station. (Direct) \n4 minutes train ride to Ikebukuro station. (Direct) \n9 minutes train ride to Harajuku station. (Direct) \n11 minutes train ride to Shibuya station. (Direct)"}}' \
             https://api.airbnb.com/v1/listings/$house/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD
     fi
+
 #    # add Photo
 #        curl -i -X POST --compressed -H "X-Airbnb-OAuth-Token: $AIRBNB_TOKEN" \
 #             -H "Content-Type: multipart/form-data; boundary=d27a2537-d9c1-40e4-b1f9-209eb38d45ff" \
@@ -78,7 +79,7 @@ publish_data=`cat << EOF
         "attachments": [{
             "color": "#FACC2E",
             "title": "release @here" ,
-            "text": "各リストを更新しました。\n\n\n ①  $DAY_BEFORE ブロック\n ②  $CHECK_DATE open\n ③ Get Around:更新。\n\n Binさん、Junさん、ご確認宜しくお願い致します。\n\n\n https://www.airbnb.com/rooms"
+            "text": "各リストを更新しました。更新内容は以下の通りです。\n\n\n1. Blocked: $DAY_BEFORE\n2. Opened: $CHECK_DATE\n3. Updated: Get Around\n\n 以上です。Binさん、Junさん、ご確認宜しくお願い致します。\n\n\n https://www.airbnb.com/rooms"
         }]
     }
 EOF`
