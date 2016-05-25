@@ -5,9 +5,9 @@ PUBLISH_CHANNEL="#release"
 TEST_CHANNEL="test"
 
 ## asuka用
-WEBHOOK_URL="https://hooks.slack.com/services/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"
+WEBHOOK_URL="XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 
-## asuka-monitor WebHook : https://hooks.slack.com/services/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
+## asuka-monitor WebHook : XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 ## 日付取得
 CHECK_DATE="$(date -v+4m +'%Y-%m-%d')"
