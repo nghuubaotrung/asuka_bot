@@ -7,7 +7,6 @@ TEST_CHANNEL="test"
 ## asuka用
 WEBHOOK_URL=xxxxxxxxxxxxxxxxxxxxxxxxx
 
-
 ## 日付取得
 CHECK_DATE="$(date -v+4m +'%Y-%m-%d')"
 CHECK_DAY="$(date -v+4m +'%d')"
