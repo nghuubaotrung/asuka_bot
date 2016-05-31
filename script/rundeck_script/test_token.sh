@@ -1,8 +1,5 @@
 #!/bin/bash
 
-## asuka用
-WEBHOOK_URL="https://hooks.slack.com/services/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"
-
 # get Airbnb token
 AIRBNB_TOKEN=$(curl -X POST -d "client_id=3092nxybyb0otqw18e8nh5nty" \
     -d "locale=en-US" \
