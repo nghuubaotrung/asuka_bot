@@ -29,8 +29,10 @@ DAY_BEFORE="$(date -v+4m -v-1d +'%Y-%m-%d')"
 FULL_HOUSE="11398837"
 CONY="11033998"
 BROWN="11574448"
+LEO="14068452"
 
-HOUSE_LIST=($FULL_HOUSE $CONY $BROWN)
+BABA_LIST=($FULL_HOUSE $CONY $BROWN)
+HOUSE_LIST=($FULL_HOUSE $CONY $BROWN $LEO)
 
 #sandbox用
 #HOUSE_LIST=("7447209")
@@ -39,6 +41,7 @@ RESPONSE=200
 
 for house in "${HOUSE_LIST[@]}"
 do
+    echo "update calendar"
     echo $AIRBNB_TOKEN
     echo $house
 
@@ -57,31 +60,46 @@ do
         https://api.airbnb.com/v2/calendars/$house/$CHECK_DATE/$CHECK_DATE \
         2>/dev/null | head -n 1 | cut -d$' ' -f2)
 
+    sleep 1
+done
 
-    # update Get Around
-    if [[ $(($CHECK_DAY % 2)) -eq 0 ]]; then
-        echo "update list"
+
+# update Get Around for Baba List
+for house in "${BABA_LIST[@]}"
+do
+    if [[ $((10#$CHECK_DAY % 2)) -eq 0 ]]; then
+        echo "update list for even day"
         curl -i -X POST --compressed -H "X-Airbnb-OAuth-Token: $AIRBNB_TOKEN" \
             -H "Content-Type: application/json; charset=UTF-8" \
             --data-binary '{"listing":{"transit":"4 minutes train ride to Shinjuku station. (direct) \n4 minutes train ride to Ikebukuro station. (direct) \n9 minutes train ride to Harajuku station. (direct) \n11 minutes train ride to Shibuya station. (direct)"}}' \
-            https://api.airbnb.com/v1/listings/$house/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD \
-            2>/dev/null | head -n 1 | cut -d$' ' -f2
+            https://api.airbnb.com/v1/listings/$house/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD
     else
-        echo "update list"
+        echo "update list for odd day"
         curl -i -X POST --compressed -H "X-Airbnb-OAuth-Token: $AIRBNB_TOKEN" \
             -H "Content-Type: application/json; charset=UTF-8" \
             --data-binary '{"listing":{"transit":"4 minutes train ride to Shinjuku station. (Direct) \n4 minutes train ride to Ikebukuro station. (Direct) \n9 minutes train ride to Harajuku station. (Direct) \n11 minutes train ride to Shibuya station. (Direct)"}}' \
-            https://api.airbnb.com/v1/listings/$house/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD \
-            2>/dev/null | head -n 1 | cut -d$' ' -f2
+            https://api.airbnb.com/v1/listings/$house/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD
     fi
 
-    # add Photo
-    #    curl -i -X POST --compressed -H "X-Airbnb-OAuth-Token: $AIRBNB_TOKEN" \
-        #                -H "Content-Type: multipart/form-data; boundary=d27a2537-d9c1-40e4-b1f9-209eb38d45ff" \
-        #                -F name="photos[]" \
-        #                -F filename="~/Source-code/asuka_bot/script/rundeck_script/test_profile.png" \
-        #                https://api.airbnb.com/v1/listings/$house/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD
+    sleep 1
 done
+
+
+# update Get Around for Leo
+if [[ $((10#$CHECK_DAY % 2)) -eq 0 ]]; then
+    echo "update list for even day"
+    curl -i -X POST --compressed -H "X-Airbnb-OAuth-Token: $AIRBNB_TOKEN" \
+        -H "Content-Type: application/json; charset=UTF-8" \
+        --data-binary '{"listing":{"transit":"2 minutes train ride to Shinjuku station. (direct) \n6 minutes train ride to Ikebukuro station. (direct) \n7 minutes train ride to Harajuku station. (direct) \n9 minutes train ride to Shibuya station. (direct)"}}' \
+        https://api.airbnb.com/v1/listings/$LEO/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD
+else
+    echo "update list for odd day"
+    curl -i -X POST --compressed -H "X-Airbnb-OAuth-Token: $AIRBNB_TOKEN" \
+        -H "Content-Type: application/json; charset=UTF-8" \
+        --data-binary '{"listing":{"transit":"2 minutes train ride to Shinjuku station. (Direct) \n6 minutes train ride to Ikebukuro station. (Direct) \n7 minutes train ride to Harajuku station. (Direct) \n9 minutes train ride to Shibuya station. (Direct)"}}' \
+        https://api.airbnb.com/v1/listings/$LEO/update?client_id=3092nxybyb0otqw18e8nh5nty&locale=en-US&currency=USD
+fi
+
 
 echo $RESPONSE
 
@@ -102,8 +120,8 @@ publish_data=`cat << EOF
 EOF`
 
 ## 通知送る
-curl -X POST --data-urlencode "$publish_data" $WEBHOOK_URL
-
 if [ $RESPONSE -ne 200 ]; then
     exit 1;
+else
+    curl -X POST --data-urlencode "$publish_data" $WEBHOOK_URL
 fi
